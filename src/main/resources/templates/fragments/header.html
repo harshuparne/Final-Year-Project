@@ -1,0 +1,76 @@
+<nav class="teal lighten-1" role="navigation">  <!---->
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo white-text" style="font-size: 23px; font-weight:500; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Virtual Education System</a>
+        <ul class="right hide-on-med-and-down">
+        	<!--ALL VIEW-->
+        	<li><a th:href="@{/}" class="white-text">Home</a></li>
+        	
+        	<!--USER-ANONY VIEW-->
+            <li sec:authorize="isAnonymous()"><a th:href="@{/courses}" class="white-text">Courses</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/teachers}" class="white-text">Teachers</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/courses}" class="white-text">Courses</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/teachers}" class="white-text">Teachers</a></li>
+            
+            <!--ADMIN VIEW-->
+            <!--Dropdown-->
+            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-trigger" href="#" data-target="coursedd">Course
+            </a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-trigger" href="#" data-target="teacherdd">Teacher
+            </a></li>
+            
+            <!--ANONY VIEW-->
+            <li sec:authorize="isAnonymous()"><a class="dropdown-trigger" href="#" data-target="logindd">Explore
+            </a></li>
+            
+            <!--USER-ADMIN VIEW-->
+            <li sec:authorize="isAuthenticated()"><a class="dropdown-trigger" data-target="accountdd"><i
+                    class="material-icons">account_circle</i></a></li>
+                    
+            <!--ADMIN VIEW-->
+           	<li sec:authorize="hasRole('ADMIN')"><a id="blink" href="#" class="blink_me white-text">Admin</a></li>
+        </ul>
+        <ul id="nav-mobile" class="sidenav teal darken-2">
+        	<li><a th:href="@{/}" class="white-text">Home</a></li>
+        	
+            <li sec:authorize="isAnonymous()"><a th:href="@{/courses}" class="white-text">Courses</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/teachers}" class="white-text">Teachers</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/courses}" class="white-text">Courses</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/teachers}" class="white-text">Teachers</a></li>
+            
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/courses}" class="white-text">View Courses</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/courses/add/1}" class="white-text">Add Course</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/teachers}" class="white-text">View Teachers</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/teachers/add}" class="white-text">Add Teacher</a></li>
+            
+            <li sec:authorize="isAnonymous()"><a th:href="@{/login}" class="white-text">Login</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/register}" class="white-text">Register</a></li>
+            <li sec:authorize="hasRole('USER')"><a th:href="@{/profile}" class="white-text">Profile</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="white-text">Logout</a></li>
+            
+            <li sec:authorize="hasRole('ADMIN')"><a href="#" class="blink_me white-text">Admin</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger white-text"><i
+                class="material-icons">menu</i></a>
+    </div>
+</nav>
+<!-- Dropdown Content -->
+<ul id="accountdd" class="dropdown-content">
+    <li sec:authorize="hasRole('USER')"><a th:href="@{/profile}">Profile</a></li>
+    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+</ul>
+<ul id="logindd" class="dropdown-content">
+    <li><a th:href="@{/login}">Login</a></li>
+    <li><a th:href="@{/register}">Register</a></li>
+</ul>
+
+<ul id="coursedd" class="dropdown-content">
+    <li><a th:href="@{/courses}">View</a></li>
+    <li><a th:href="@{/courses/add/1}">Add</a></li>
+</ul>
+
+<ul id="teacherdd" class="dropdown-content">
+    <li><a th:href="@{/teachers}">View</a></li>
+    <li><a th:href="@{/teachers/add}">Add</a></li>
+</ul>
+
+

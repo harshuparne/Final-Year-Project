@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:insert="fragments/head">
+</head>
+<body>
+<header th:insert="fragments/header"></header>
+
+<main>
+    <div class="container">
+        <h3 class="center">Edit Data</h3>
+        <br>
+        <div class="row">
+            <div class="section col s12 l6 offset-l3">
+                <form action="#" method="post"
+                      th:object="${user}"
+                      th:action="@{/user/edit/{id_user} (id_user=${user.id})}"
+                >
+
+                    <div class="input-field">
+                        <label for="firstname_user">Firstname</label>
+                        <input type="text" class="class-controller"
+                               id="firstname_user"
+                               th:field="*{firstname}" autofocus required
+                        >
+                    </div>
+
+                    <div class="input-field">
+                        <label for="lastname_user">Lastname</label>
+                        <input type="text" class="class-controller"
+                               id="lastname_user"
+                               th:field="*{lastname}" required
+                        >
+                    </div>
+
+                    <div class="input-field">
+                        <label for="email_user">Email</label>
+                        <input type="text" class="class-controller"
+                               id="email_user"
+                               th:field="*{email}" required
+                        >
+                    </div>
+
+                    <div class="input-field">
+                        <label for="imgurl">URL Image</label>
+                        <input type="text" class="class-controller" id="imgurl" th:field="*{imgurl}" required>
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Edit
+                    </button>
+                    <a th:href="@{/profile}" class="btn red lighten-1">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<br><br>
+
+<footer class="page-footer teal lighten-2" th:insert="fragments/footer">
+</footer>
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/js/materialize.js"></script>
+<script src="/js/init.js"></script>
+</body>
+</html>

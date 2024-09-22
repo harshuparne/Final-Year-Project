@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:insert="fragments/head">
+</head>
+
+<body>
+<header th:insert="fragments/header">
+</header>
+
+<main>
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br><br>
+                <h1 class="header center white-text">Teachers</h1>
+                <div sec:authorize="hasRole('USER')" class="row center">
+                    <h5 class="header col s12 light">Be the part of our great staff of teachers</h5>
+                    <h6 class="header col s12 light">To join us as a teacher click below</h6>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" class="row center">
+                    <h5 class="header col s12 light">Admin can add, view, edit and remove teacher</h5>
+                </div>
+                <br>
+                <div sec:authorize="hasRole('USER')" class="row center">
+                    <a th:href="@{/contact}" class="waves-effect waves-light btn-large">Contact us</a>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" class="row center">
+                    <a th:href="@{/teachers/add}" class="waves-effect waves-light btn-large">Add Teacher</a>
+                </div>
+                <br><br>
+            </div>
+        </div>
+        <div class="parallax"><img src="/img/teachers.jpg" alt="Unsplash teachers background"></div>
+    </div>
+    <div class="section">
+        <div th:switch="teachers" class="container">
+            <div th:case="*" class="row">
+                <div class="col s12 center">
+                    <h4>List of Teachers</h4>
+                    <br>
+                    <table class="highlight responsive-table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="teacher : ${teachers}">
+
+                            <th scope="row" th:text="${teacher.id_teacher}"></th>
+                            <td th:text="${teacher.firstnameTeacher}"></td>
+                            <td th:text="${teacher.lastnameTeacher}"></td>
+                            <td th:text="${teacher.emailTeacher}"></td>
+                            <td th:text="${teacher.descTeacher}"></td>
+
+                            <td>
+                                <div>
+                                    <span sec:authorize="isAuthenticated()">
+                                    <a class="btn-floating waves-effect waves-light btn-small"
+                                       th:href="|/teachers/${teacher.id_teacher}|"><i
+                                            class="material-icons">chevron_right
+                                    </i></a>
+                                    </span>
+                                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{/teachers/edit/{id_teacher}
+                                    (id_teacher=${teacher.id_teacher})}"
+                                       class="btn-floating waves-effect waves-light btn-small yellow darken-1"><i
+                                            class="material-icons">edit</i>
+                                    </a>
+                                    </span>
+                                    <span sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <a th:href="@{/teachers/delete/{id_teacher}
+                                (id_teacher=${teacher.id_teacher})}"
+                                       class="btn-floating waves-effect waves-light btn-small red lighten-1"><i
+                                            class="material-icons">delete_forever</i>
+                                    </a>
+                                    </span>
+                                </div>
+                            </td>                       </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br><br>
+
+<footer class="page-footer teal lighten-2" th:insert="fragments/footer">
+
+</footer>
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/js/materialize.js"></script>
+<script src="/js/init.js"></script>
+
+</body>
+</html>
